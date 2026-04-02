@@ -7,23 +7,24 @@ import az.edu.ada.wm2.lab6.model.dto.ProductResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    // Entity → Response DTO
-    @Mapping(target = "categoryNames", source = "categories")
+    @Mapping(target = "categoryNames", expression = "java(mapCategoriesToNames(product.getCategories()))")
     ProductResponseDto toResponseDto(Product product);
 
-    // Request DTO → Entity
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "categories", ignore = true)
     Product toEntity(ProductRequestDto dto);
 
-    // Custom mapping: Set<Category> → List<String>
-    default List<String> mapCategoriesToNames(Set<Category> categories) {
+    default List<String> mapCategoriesToNames(List<Category> categories) {
+        if (categories == null || categories.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         return categories.stream()
                 .map(Category::getName)
                 .toList();

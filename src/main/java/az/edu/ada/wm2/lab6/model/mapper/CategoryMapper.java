@@ -7,23 +7,19 @@ import az.edu.ada.wm2.lab6.model.dto.CategoryResponseDto;
 public class CategoryMapper {
 
     public static Category toEntity(CategoryRequestDto dto) {
-        if (dto == null) {
-            return null;
-        }
+        if (dto == null) return null;
 
-        return Category.builder()
-                .name(dto.getName())
-                .build();
+        Category category = new Category();
+        category.setName(dto.getName());
+        return category;
     }
 
     public static CategoryResponseDto toResponseDto(Category category) {
-        if (category == null) {
-            return null;
-        }
+        if (category == null) return null;
 
-        return CategoryResponseDto.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
+        CategoryResponseDto dto = new CategoryResponseDto();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        return dto;
     }
 }
