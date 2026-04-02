@@ -1,6 +1,8 @@
 package az.edu.ada.wm2.lab6.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,6 +10,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
